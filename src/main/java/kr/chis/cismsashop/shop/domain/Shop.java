@@ -13,10 +13,6 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@ToString
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name="sp_shop")
 public class Shop {
     @Id
@@ -46,5 +42,15 @@ public class Shop {
             return true;
         }
         return false;
+    }
+
+    public Shop() {
+    }
+
+    @Builder
+    public Shop(String shopName, ShopStatus shopStatus, Long minOrderAmt) {
+        this.shopName = shopName;
+        this.shopStatus = shopStatus;
+        this.minOrderAmt = minOrderAmt;
     }
 }
