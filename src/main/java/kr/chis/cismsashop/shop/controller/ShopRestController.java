@@ -12,6 +12,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
+import java.util.List;
+
 /**
  * @author InSeok
  * Date : 2020/07/19
@@ -29,9 +31,10 @@ public class ShopRestController {
     }
 
     @GetMapping("")
-    public Flux<Shop> getShops(){
-        log.info("GetShops Called");
+    public Mono<List<Shop>> getShops() throws InterruptedException {
+
         return shopService.findAll();
+
     }
     @GetMapping("/{id}")
     public Mono<Shop> getShop(@PathVariable Long id){

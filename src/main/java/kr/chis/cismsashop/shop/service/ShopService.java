@@ -5,13 +5,15 @@ import kr.chis.cismsashop.shop.domain.ShopDto;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 /**
  * @author InSeok
  * Date : 2020/07/22
  * Remark :
  */
 public interface ShopService {
-    public Flux<Shop> findAll();
+    public Mono<List<Shop>> findAll() throws InterruptedException;
     public Mono<Shop> findById(Long id);
 
 }
