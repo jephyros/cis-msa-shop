@@ -10,6 +10,7 @@ import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -44,7 +45,7 @@ public class ShopServiceImpl implements ShopService{
 //        return Mono.just(shop.get()).log();
         return Mono.fromCallable(()-> {
             Thread.sleep(2000);
-            return shopRepository.findById(id).get();
+            return shopRepository.findById(id).orElse(null);
         })
                 .subscribeOn(Schedulers.elastic()).log();
     }
