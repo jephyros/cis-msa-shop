@@ -58,6 +58,7 @@ public class ShopServiceImpl implements ShopService{
                     return v;
                 }).subscribeOn(Schedulers.elastic());
 
+
     }
 
 
