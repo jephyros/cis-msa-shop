@@ -4,8 +4,8 @@ import kr.chis.cismsashop.shop.domain.Shop;
 import kr.chis.cismsashop.shop.domain.ShopRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
@@ -20,10 +20,12 @@ import java.util.List;
 @Slf4j
 public class ShopServiceImpl implements ShopService{
     private final ShopRepository shopRepository;
+    private final ShopTestService shopTestService;
 
     @Autowired
-    public ShopServiceImpl(ShopRepository shopRepository) {
+    public ShopServiceImpl(ShopRepository shopRepository, ShopTestService shopTestService) {
         this.shopRepository = shopRepository;
+        this.shopTestService = shopTestService;
     }
 
     public Mono<List<Shop>> findAll()  {
@@ -42,27 +44,21 @@ public class ShopServiceImpl implements ShopService{
 //        Optional<Shop> shop = shopRepository.findById(id);
 //        return Mono.just(shop.get()).log();
         return Mono.fromCallable(()-> {
+            log.info("repository find");
             Thread.sleep(2000);
-            //log.info("repository========");
-            //this.asyncWork("call async");
             return shopRepository.findById(id).orElse(null);
         })
-                .subscribeOn(Schedulers.elastic())
+
                 .map(v-> {
                     try {
-                        v.setShopName(this.asyncWork(v.getShopName()));
+                        log.info(shopTestService.asyncWork("test"));
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
                     return v;
-                });
+                }).subscribeOn(Schedulers.elastic());
+
     }
 
-    //@Async("threadPoolTaskExecutor")
-    public String asyncWork(String str) throws InterruptedException {
-        Thread.sleep(2000);
-        log.info("Asyncwork=========:" + str);
-        return str+"<AsyncWork>";
-    }
+
 }
