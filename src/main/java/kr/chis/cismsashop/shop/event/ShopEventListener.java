@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ShopEventListener {
 
-    @KafkaListener(topics = "msaorder")
+    @KafkaListener(topics = "ordersave")
     public void receiveOrderedEvent(ConsumerRecord consumerRecord){
         System.out.println("=================" + consumerRecord.value());
 
