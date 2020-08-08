@@ -30,7 +30,7 @@ public class ShopEventListener {
     public void receiveOrderedEvent(ConsumerRecord consumerRecord) throws JsonProcessingException {
         System.out.println("=================" + consumerRecord.value());
         //new JsonDeserializer<Order>(consumerRecord.value());
-        mapper.registerModule(new JavaTimeModule());
+        //mapper.registerModule(new JavaTimeModule());
         Order order = mapper.readValue(consumerRecord.value().toString(), Order.class);
 
         log.info("========= Order Mapped : {}",order.toString());

@@ -1,8 +1,8 @@
 package kr.chis.cismsashop.shop.mapper;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,8 @@ import java.util.List;
  * Date : 2020/08/08
  * Remark :
  */
-@Data
+@Getter
+@ToString
 public class Order {
     private Long id;
     private String orderName;
@@ -24,8 +25,6 @@ public class Order {
     private String createId;
     private LocalDateTime modifyData;
     private String modifyId;
-    private String orderStatus;
-    private Long orderAmoumt;
 
 
 }
