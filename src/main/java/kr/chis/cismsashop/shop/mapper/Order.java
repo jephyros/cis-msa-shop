@@ -26,5 +26,22 @@ public class Order {
     private LocalDateTime modifyData;
     private String modifyId;
 
+    public Long calculateOrderamt(){
+        Long resultamt = 0L;
+
+        for(OrderLineItem orderLineItem : orderLineItems){
+            resultamt += orderLineItem.getOrderAmount();
+        }
+
+        return resultamt;
+    }
+
+    public Boolean isValidOrderItemCount(){
+        if (orderLineItems.size() >0) return true;
+
+        return false;
+    }
+
+
 
 }
