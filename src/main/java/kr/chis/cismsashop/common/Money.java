@@ -15,7 +15,7 @@ public class Money {
     private final BigDecimal amount;
 
     public Money() {
-        this.amount=BigDecimal.ZERO;
+        this.amount=null; //BigDecimal.ZERO;
     }
 
     public static final Money ZERO = Money.wons(0);
@@ -62,13 +62,14 @@ public class Money {
         return amount.compareTo(other.amount) >= 0;
     }
 
-    public BigDecimal getAmount() {
-        return amount;
-    }
-    public void setAmount(BigDecimal amount){
-        //불변객체로 Embedded 때문에 기본Sette생성이 필요함?
-    }
+//    public BigDecimal getAmount() {
+//        return amount;
+//    }
+//    public void setAmount(BigDecimal amount){
+//        //불변객체로 Embedded 때문에 기본Sette생성이 필요함?
+//    }
 
+    public BigDecimal BigDecimalValue() { return amount;}
     public Long longValue() {
         return amount.longValue();
     }
