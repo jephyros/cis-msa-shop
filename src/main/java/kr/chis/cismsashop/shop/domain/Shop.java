@@ -1,9 +1,12 @@
 package kr.chis.cismsashop.shop.domain;
 
+import kr.chis.cismsashop.common.Money;
 import kr.chis.cismsashop.common.ShopStatus;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author InSeok
@@ -11,8 +14,6 @@ import javax.persistence.*;
  * Remark :
  */
 @Entity
-@Getter
-@Setter
 @Table(name="sp_shop")
 public class Shop {
     @Id
@@ -27,8 +28,12 @@ public class Shop {
     @Column(name="sp_status")
     private ShopStatus shopStatus;
 
-    @Column(name="sp_min_order_amt")
-    private Long minOrderAmt;
+    @AttributeOverride(name="amount", column=@Column(name="sp_min_order_amt"))
+    private Money minOrderAmt;
+
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name ="sm_sp_id")
+    private List<ShopMenuItem> shopMenuItems = new ArrayList<>();
 
     public boolean isOpen() {
         if ( this.shopStatus == ShopStatus.OPEN){
@@ -37,8 +42,8 @@ public class Shop {
         return false;
     }
 
-    public boolean isValidOrderAmount(Long totalAmount) {
-        if (totalAmount >= this.minOrderAmt){
+    public boolean isValidOrderAmount(Money totalAmount) {
+        if (totalAmount.isLessThan(this.minOrderAmt)){
             return true;
         }
         return false;
@@ -48,9 +53,10 @@ public class Shop {
     }
 
     @Builder
-    public Shop(String shopName, ShopStatus shopStatus, Long minOrderAmt) {
+    public Shop(String shopName, ShopStatus shopStatus, Money minOrderAmt, List<ShopMenuItem> shopMenuItems) {
         this.shopName = shopName;
         this.shopStatus = shopStatus;
         this.minOrderAmt = minOrderAmt;
+        this.shopMenuItems.addAll(shopMenuItems);
     }
 }
