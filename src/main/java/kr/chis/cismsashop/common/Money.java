@@ -65,6 +65,9 @@ public class Money {
     public BigDecimal getAmount() {
         return amount;
     }
+    public void setAmount(BigDecimal amount){
+        //불변객체로 Embedded 때문에 기본Sette생성이 필요함?
+    }
 
     public Long longValue() {
         return amount.longValue();
