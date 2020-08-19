@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 /**
  * @author InSeok
@@ -13,6 +14,7 @@ import javax.persistence.*;
  * Remark :
  */
 @Entity
+@Getter
 @Table(name="sp_shop_menu")
 public class ShopMenuItem {
 
@@ -36,5 +38,9 @@ public class ShopMenuItem {
         this.id = id;
         this.menuName = menuName;
         this.menuPrice = menuPrice;
+    }
+
+    public BigDecimal getMenuPrice() {
+        return menuPrice.BigDecimalValue();
     }
 }

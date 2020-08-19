@@ -5,6 +5,7 @@ import kr.chis.cismsashop.common.ShopStatus;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="sp_shop")
+@Getter
 public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,5 +60,9 @@ public class Shop {
         this.shopStatus = shopStatus;
         this.minOrderAmt = minOrderAmt;
         this.shopMenuItems.addAll(shopMenuItems);
+    }
+
+    public BigDecimal getMinOrderAmt() {
+        return minOrderAmt.BigDecimalValue();
     }
 }

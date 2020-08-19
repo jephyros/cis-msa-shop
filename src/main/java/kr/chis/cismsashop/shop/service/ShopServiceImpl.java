@@ -30,33 +30,21 @@ public class ShopServiceImpl implements ShopService{
 
     public Mono<List<Shop>> findAll()  {
         return Mono.fromCallable(()-> {
-            Thread.sleep(2000);
+            //Thread.sleep(2000);
             return shopRepository.findAll();
         })
-                .subscribeOn(Schedulers.elastic()).log();
+                .subscribeOn(Schedulers.elastic());
 
 
     }
 
     @Override
     public Mono<Shop> findById(Long id) {
-        log.info("Shop findById====서비스 시작");
-//        Optional<Shop> shop = shopRepository.findById(id);
-//        return Mono.just(shop.get()).log();
-        return Mono.fromCallable(()-> {
-            log.info("repository find");
-            Thread.sleep(2000);
-            return shopRepository.findById(id).orElse(null);
-        })
 
-                .map(v-> {
-                    try {
-                        log.info(shopTestService.asyncWork("test"));
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    return v;
-                }).subscribeOn(Schedulers.elastic());
+        return Mono.fromCallable(()-> {
+            //Thread.sleep(2000);
+            return shopRepository.findById(id).orElse(null);
+            }).subscribeOn(Schedulers.elastic());
 
 
     }

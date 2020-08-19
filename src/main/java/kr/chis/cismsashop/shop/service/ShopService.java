@@ -13,7 +13,7 @@ import java.util.List;
  * Remark :
  */
 public interface ShopService {
-    public Mono<List<Shop>> findAll() throws InterruptedException;
+    public Mono<List<Shop>> findAll() ;
     public Mono<Shop> findById(Long id);
 
 }
