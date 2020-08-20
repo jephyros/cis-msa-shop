@@ -24,6 +24,7 @@ public class Shop {
     @Column(name="sp_id")
     private Long id;
 
+
     @Column(name="sp_name")
     private String shopName;
 
