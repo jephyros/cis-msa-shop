@@ -7,6 +7,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,6 +34,10 @@ public class Shop {
     @AttributeOverride(name="amount", column=@Column(name="sp_min_order_amt"))
     private Money minOrderAmt;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDate;
+
+
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name ="sm_sp_id")
     private List<ShopMenuItem> shopMenuItems = new ArrayList<>();
@@ -55,11 +60,12 @@ public class Shop {
     }
 
     @Builder
-    public Shop(String shopName, ShopStatus shopStatus, Money minOrderAmt, List<ShopMenuItem> shopMenuItems) {
+    public Shop(String shopName, ShopStatus shopStatus, Money minOrderAmt, List<ShopMenuItem> shopMenuItems,Date createDate) {
         this.shopName = shopName;
         this.shopStatus = shopStatus;
         this.minOrderAmt = minOrderAmt;
         this.shopMenuItems.addAll(shopMenuItems);
+        this.createDate = createDate;
     }
 
     public BigDecimal getMinOrderAmt() {

@@ -11,6 +11,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Arrays;
+import java.util.Date;
 
 /**
  * @author InSeok
@@ -38,6 +39,7 @@ public class AppRunner implements ApplicationRunner {
                 .minOrderAmt(Money.wons(12000L))
                 .shopStatus(ShopStatus.OPEN)
                 .shopMenuItems(Arrays.asList(m1_1,m1_2))
+                .createDate(new Date())
                 .shopName("양꼬치대장").build();
         shopRepository.save(s1);
 
@@ -54,6 +56,7 @@ public class AppRunner implements ApplicationRunner {
                 .minOrderAmt(Money.wons(25000L))
                 .shopMenuItems(Arrays.asList(m2_1,m2_2))
                 .shopStatus(ShopStatus.OPEN)
+                .createDate(new Date())
                 .shopName("수원왕갈비").build();
         shopRepository.save(s2);
 
