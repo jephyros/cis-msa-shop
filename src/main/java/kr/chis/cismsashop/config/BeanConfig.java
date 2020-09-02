@@ -27,12 +27,14 @@ public class BeanConfig {
 
         return mapper;
     }
+    //CORS 설정을 SPring Cloud GateWay 에서 했으면 여기서는 할 필요가 없다.
     @Bean
     CorsWebFilter corsWebFilter() {
         CorsConfiguration corsConfig = new CorsConfiguration();
-        corsConfig.setAllowedOrigins(Arrays.asList("http://localhost:8190"));
+        //corsConfig.setAllowedOrigins(Arrays.asList("http://localhost:8190"));
+        corsConfig.setAllowedOrigins(Arrays.asList("*"));
         corsConfig.setMaxAge(8000L);
-        corsConfig.addAllowedMethod("GET");
+        corsConfig.addAllowedMethod("*");
         corsConfig.addAllowedHeader("*");
 
         UrlBasedCorsConfigurationSource source =
